@@ -6,12 +6,12 @@ const Organization = require('../models/organization');
 const protect = require("../middleware/auth");
 
 const generateToken = (org) => {
-  return jwt.sign({ id: org._id }, process.env.JWT_SECRET, {
+  return jwt.sign({ id: org.org_id }, process.env.JWT_SECRET, {
     expiresIn: process.env.JWT_Expire,
   });
 };
 
-router.get("/org", async (req, res) => {
+router.get("/org", protect,async (req, res) => {
   try {
     const orgs = await Organization.findAll();
     res.status(200).json(orgs);
@@ -29,6 +29,7 @@ router.post("/org", async (req, res) => {
     }
     const orgs = await Organization.create({ org_name, org_id });
     const token = generateToken(orgs);
+    console.log(token);
     res.status(201).json({
       message: "Org Created Successfully",
       org: orgs,

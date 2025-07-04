@@ -13,7 +13,7 @@ const protect = async(req,res,next)=>{
             const decoded =jwt.verify(token,process.env.JWT_SECRET);
             console.log(decoded);
             
-            req.org=await Org.findById(decoded.id).select("-password");
+            req.org = await Org.findOne({ where: { org_id: decoded.id } });
             next()
         }catch(error){
             return res.status(401).json({message:"Not authorized,token failed"});

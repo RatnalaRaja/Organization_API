@@ -29,7 +29,7 @@ const Employee = sequelize.define("Employee", {
   timestamps: false,
 });
 
-Organization.hasMany(Employee, { foreignKey: 'org_id' });
-Employee.belongsTo(Organization, { foreignKey: 'org_id' });
+// Organization.hasMany(Employee, { foreignKey: 'org_id' });
+// Employee.belongsTo(Organization, { foreignKey: 'org_id' });
 
 module.exports = Employee;
